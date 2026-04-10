@@ -7,28 +7,139 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root{--bg:#07070d;--bg2:#0e0e1a;--fg:#e4e4f0;--muted:#5a5a72;--accent:#00e8ff;--accent2:#ff6a00;--danger:#ff0040;--success:#00ff88;--card:rgba(14,14,26,.92);--border:rgba(0,232,255,.12);--glow:0 0 18px rgba(0,232,255,.25);--font-display:'Orbitron',monospace;--font-ui:'Rajdhani',sans-serif}
+:root {
+  --bg: #080c10;
+  --bg2: #0d1318;
+  --fg: #e8eef4;
+  --muted: #5a6a72;
+  --accent: #ff7a00;       /* naranja Firefall primario */
+  --accent2: #00c8ff;      /* cian Firefall secundario */
+  --accent3: #ffb300;      /* ámbar para detalles */
+  --danger: #ff1a1a;
+  --success: #39ff7a;
+  --card: rgba(13,19,24,0.94);
+  --border: rgba(255,122,0,0.18);
+  --border2: rgba(0,200,255,0.12);
+  --glow: 0 0 20px rgba(255,122,0,0.3);
+  --glow2: 0 0 16px rgba(0,200,255,0.25);
+  --font-display: 'Orbitron', monospace;
+  --font-ui: 'Rajdhani', sans-serif;
+  --panel-bg: linear-gradient(135deg, rgba(13,19,24,0.96), rgba(20,28,36,0.92));
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--fg);font-family:var(--font-ui);overflow:hidden;width:100vw;height:100vh;cursor:default}
 canvas#gc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
 .screen{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s,visibility .4s}
 .screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
 /* MENÚ */
-#menu{background:linear-gradient(160deg,rgba(7,7,13,.85),rgba(0,232,255,.04))}
-.menu-logo{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);font-weight:900;letter-spacing:.15em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;margin-bottom:.1em;animation:logoPulse 3s ease-in-out infinite}
-@keyframes logoPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
-.menu-sub{font-family:var(--font-display);font-size:clamp(.7rem,1.8vw,1rem);color:var(--muted);letter-spacing:.4em;text-transform:uppercase;margin-bottom:2.5em}
-.btn{font-family:var(--font-ui);font-weight:700;font-size:1.05rem;padding:.75em 2.4em;border:1px solid var(--border);border-radius:4px;background:var(--card);color:var(--fg);cursor:pointer;transition:all .2s;letter-spacing:.08em;position:relative;overflow:hidden;min-width:220px;text-align:center}
-.btn:hover{border-color:var(--accent);box-shadow:var(--glow);color:#fff;transform:translateY(-2px)}
-.btn:active{transform:scale(.97)}
-.btn.primary{background:linear-gradient(135deg,rgba(0,232,255,.15),rgba(255,106,0,.1));border-color:rgba(0,232,255,.35)}
-.btn.primary:hover{background:linear-gradient(135deg,rgba(0,232,255,.25),rgba(255,106,0,.18));box-shadow:0 0 30px rgba(0,232,255,.3)}
-.btn.danger{border-color:rgba(255,0,64,.3)}
-.btn.danger:hover{border-color:var(--danger);box-shadow:0 0 20px rgba(255,0,64,.25)}
+#menu {
+  background: radial-gradient(ellipse at 60% 40%, rgba(255,122,0,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(0,200,255,0.04) 0%, transparent 50%),
+              linear-gradient(160deg, rgba(8,12,16,0.97), rgba(13,19,24,0.95));
+}
+
+.menu-logo {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  background: linear-gradient(135deg, #ff7a00 0%, #ffb300 40%, #ff4400 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(255,122,0,0.5));
+  animation: logoPulse 3s ease-in-out infinite;
+  margin-bottom: 0.05em;
+}
+
+.menu-logo-sub-line {
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  margin: 0 auto 0.4em;
+  border-radius: 1px;
+}
+
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 25px rgba(255,122,0,0.4)); }
+  50% { filter: drop-shadow(0 0 45px rgba(255,122,0,0.7)); }
+}
+
+.menu-sub {
+  font-family: var(--font-display);
+  font-size: clamp(0.6rem, 1.6vw, 0.85rem);
+  color: var(--accent2);
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  margin-bottom: 2.8em;
+  opacity: 0.7;
+}
+
+.btn {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.8em 2.5em;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--panel-bg);
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.12em;
+  position: relative;
+  overflow: hidden;
+  min-width: 240px;
+  text-align: center;
+  text-transform: uppercase;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); /* hex corners Firefall */
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 3px; height: 100%;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn:hover::before { opacity: 1; }
+.btn:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow), inset 0 0 20px rgba(255,122,0,0.05);
+  color: #fff;
+  transform: translateX(4px);
+}
+.btn:active { transform: scale(0.97) translateX(2px); }
+
+.btn.primary {
+  background: linear-gradient(135deg, rgba(255,122,0,0.18), rgba(255,179,0,0.08));
+  border-color: rgba(255,122,0,0.45);
+  border-left: 2px solid var(--accent);
+}
+.btn.primary:hover {
+  background: linear-gradient(135deg, rgba(255,122,0,0.28), rgba(255,179,0,0.14));
+  box-shadow: 0 0 35px rgba(255,122,0,0.35), inset 0 0 20px rgba(255,122,0,0.05);
+}
+
+.btn.danger { border-color: rgba(255,26,26,0.3); }
+.btn.danger:hover { border-color: var(--danger); box-shadow: 0 0 22px rgba(255,26,26,0.3); }
+
 .menu-buttons{display:flex;flex-direction:column;gap:.7em;align-items:center}
-.menu-stats{margin-top:2em;display:flex;gap:2em;font-size:.85rem;color:var(--muted)}
+.menu-stats {
+  margin-top: 2.2em;
+  display: flex;
+  gap: 2.5em;
+  font-size: 0.82rem;
+  color: var(--muted);
+  background: rgba(255,122,0,0.04);
+  padding: 0.6em 1.5em;
+  border: 1px solid rgba(255,122,0,0.1);
+  border-radius: 2px;
+}
 .menu-stats span{display:flex;align-items:center;gap:.4em}
-.menu-stats i{color:var(--accent);font-size:.75rem}
+.menu-stats i { color: var(--accent); }
 /* MATCHMAKING */
 #matchmaking{background:rgba(7,7,13,.92)}
 .mm-title{font-family:var(--font-display);font-size:1.6rem;color:var(--accent);margin-bottom:1.5em;letter-spacing:.1em}
@@ -44,89 +155,310 @@ canvas#gc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
 /* HUD */
 #hud{position:fixed;inset:0;z-index:20;pointer-events:none}
 #hud.hidden{display:none}
-.hud-bottom{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:1.2em 1.5em}
-.health-section{display:flex;align-items:center;gap:.8em}
-.health-bar-outer{width:200px;height:10px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;border:1px solid rgba(0,255,136,.15)}
-.health-bar-inner{height:100%;background:linear-gradient(90deg,var(--success),#00cc66);border-radius:5px;transition:width .2s}
-.health-text{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--success);min-width:45px}
-.ammo-section{text-align:right}
-.ammo-count{font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--fg);line-height:1}
-.ammo-count .reserve{font-size:1rem;color:var(--muted);font-weight:400}
-.weapon-name-hud{font-size:.8rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-top:.2em}
-.crosshair{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
-.crosshair div{position:absolute;background:rgba(0,232,255,.85);transition:all .1s}
-.ch-top{width:2px;height:12px;left:-1px;top:-18px}
-.ch-bot{width:2px;height:12px;left:-1px;top:6px}
-.ch-left{width:12px;height:2px;top:-1px;left:-18px}
-.ch-right{width:12px;height:2px;top:-1px;left:6px}
-.ch-dot{width:2px;height:2px;left:-1px;top:-1px;border-radius:50%}
-.crosshair.spread .ch-top{top:-24px}.crosshair.spread .ch-bot{top:12px}.crosshair.spread .ch-left{left:-24px}.crosshair.spread .ch-right{left:12px}
-.hitmarker{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity .05s}
-.hitmarker.show{opacity:1}
-.hitmarker div{position:absolute;width:14px;height:2px;background:#fff}
-.hm-1{transform:rotate(45deg);top:-8px;left:4px}.hm-2{transform:rotate(-45deg);top:-8px;right:4px}.hm-3{transform:rotate(45deg);bottom:-8px;left:4px}.hm-4{transform:rotate(-45deg);bottom:-8px;right:4px}
-.killfeed{position:absolute;top:1em;right:1.5em;display:flex;flex-direction:column;gap:.3em;max-width:320px}
-.kf-entry{font-size:.78rem;padding:.3em .7em;background:rgba(0,0,0,.5);border-radius:3px;border-left:2px solid var(--accent);animation:kfIn .3s ease-out;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.hud-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 1.5em 1.2em;
+  background: linear-gradient(to top, rgba(8,12,16,0.6) 0%, transparent 100%);
+}
+
+.health-bar-outer {
+  width: 220px; height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 0;
+  overflow: hidden;
+  border: none;
+  border-bottom: 1px solid rgba(57,255,122,0.2);
+  clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+}
+
+.health-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #39ff7a, #00cc55);
+  border-radius: 0;
+  transition: width 0.15s;
+  box-shadow: 0 0 8px rgba(57,255,122,0.4);
+}
+
+.health-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.health-label {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.health-text {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--success);
+  line-height: 1;
+  text-shadow: 0 0 15px rgba(57,255,122,0.5);
+}
+
+.ammo-section {
+  text-align: right;
+}
+
+.ammo-count {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--fg);
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(255,122,0,0.3);
+}
+.ammo-count .reserve {
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.weapon-name-hud {
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 0.15em;
+}
+
+/* Score bar táctica Firefall */
+.score-bar {
+  position: absolute;
+  top: 0.8em;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1.8em;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  background: linear-gradient(135deg, rgba(8,12,16,0.9), rgba(13,19,24,0.85));
+  padding: 0.4em 2em;
+  border: 1px solid rgba(255,122,0,0.2);
+  border-top: 2px solid var(--accent);
+  clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 100%, 0% 100%);
+}
+
+.score-bar .kills { color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+.score-bar .timer { color: var(--accent2); font-size: 0.95rem; }
+
+/* Crosshair Firefall (tipo reticle táctico) */
+.crosshair div { position: absolute; background: rgba(255,122,0,0.9); transition: all 0.08s; }
+.ch-top { width: 1.5px; height: 10px; left: -0.75px; top: -16px; }
+.ch-bot { width: 1.5px; height: 10px; left: -0.75px; top: 6px; }
+.ch-left { width: 10px; height: 1.5px; top: -0.75px; left: -16px; }
+.ch-right { width: 10px; height: 1.5px; top: -0.75px; left: 6px; }
+.ch-dot { width: 3px; height: 3px; left: -1.5px; top: -1.5px; border-radius: 50%; background: rgba(255,179,0,1); }
+.crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* Hitmarker naranja */
+.hitmarker {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;opacity:0}
+.hitmarker.show{opacity:1;animation:hmFade .3s}
+.hitmarker div { position:absolute;width:2px;height:12px;background: var(--accent); }
+.hm-1{top:-20px;left:-1px;transform:rotate(45deg)}
+.hm-2{top:8px;left:-1px;transform:rotate(-45deg)}
+.hm-3{top:-6px;left:-15px;transform:rotate(-45deg)}
+.hm-4{top:-6px;left:13px;transform:rotate(45deg)}
+@keyframes hmFade{from{transform:translate(-50%,-50%) scale(.5)}to{transform:translate(-50%,-50%) scale(1.2)}}
+.damage-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(255,0,64,.3) 100%);pointer-events:none;opacity:0;transition:opacity .1s}
+.damage-vignette.show{opacity:1}
+
+/* Low health — rojo pulsante */
+@keyframes lowHPulse {
+  0%, 100% { opacity: var(--low-hp-opacity, 0); }
+  50% { opacity: calc(var(--low-hp-opacity, 0) * 1.6); }
+}
+.low-health-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(255,0,64,.4) 100%);pointer-events:none;animation:lowHPulse 1s infinite}
+
+#killfeed{position:absolute;top:4em;right:1.5em;display:flex;flex-direction:column;gap:.4em;align-items:flex-end}
+/* Killfeed Firefall */
+.kf-entry {
+  font-size: 0.76rem;
+  padding: 0.3em 0.8em;
+  background: rgba(8,12,16,0.75);
+  border-radius: 1px;
+  border-left: 2px solid var(--accent);
+  border-right: 1px solid rgba(255,122,0,0.15);
+  animation:kfIn .3s forwards;
+}
 @keyframes kfIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-.score-bar{position:absolute;top:1em;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:1.5em;font-family:var(--font-display);font-size:.85rem;background:var(--card);padding:.4em 1.5em;border-radius:4px;border:1px solid var(--border)}
-.score-bar .kills{color:var(--accent);font-weight:700;font-size:1.1rem}
-.score-bar .timer{color:var(--muted)}
-.minimap-container{position:absolute;top:1em;left:1.2em}
-#minimap{border:1px solid var(--border);border-radius:4px;background:rgba(0,0,0,.4)}
-.damage-vignette{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .1s;background:radial-gradient(ellipse at center,transparent 50%,rgba(255,0,40,.35) 100%)}
-.low-health-vignette{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(ellipse at center,transparent 40%,rgba(255,0,0,.25) 100%);animation:lowHPulse 1s ease-in-out infinite}
-@keyframes lowHPulse{0%,100%{opacity:var(--low-hp-opacity,0)}50%{opacity:calc(var(--low-hp-opacity,0)*1.5)}}
-.weapon-switch-indicator{position:absolute;bottom:5em;left:50%;transform:translateX(-50%);font-family:var(--font-display);font-size:.9rem;color:var(--accent);opacity:0;transition:opacity .2s;letter-spacing:.1em}
-.weapon-switch-indicator.show{opacity:1}
+
+/* Minimap Firefall */
+.minimap-container {
+  position: absolute;
+  top: 1em; left: 1em;
+  border: 1px solid rgba(255,122,0,0.3);
+  border-top: 2px solid var(--accent);
+  background: rgba(8,12,16,0.7);
+}
+#minimap { display: block; }
 /* MUERTE */
-#death-screen{background:rgba(255,0,40,.08);z-index:25}
-.death-text{font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--danger);margin-bottom:.5em}
-.death-sub{font-size:1.1rem;color:var(--muted);margin-bottom:1.5em}
-.respawn-timer{font-family:var(--font-display);font-size:4rem;font-weight:900;color:var(--fg);margin-bottom:1em}
+/* MUERTE */
+#death-screen {
+  background: radial-gradient(ellipse at center, rgba(255,26,26,0.12) 0%, rgba(8,12,16,0.92) 70%);
+  backdrop-filter: blur(4px);
+}
+
+.death-text {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--danger);
+  text-shadow: 0 0 40px rgba(255,26,26,0.6);
+  letter-spacing: 0.3em;
+  margin-bottom: 0.4em;
+  animation: deathPulse 1s ease-in-out infinite;
+}
+
+@keyframes deathPulse {
+  0%, 100% { text-shadow: 0 0 30px rgba(255,26,26,0.5); }
+  50% { text-shadow: 0 0 60px rgba(255,26,26,0.9); }
+}
+
+.respawn-timer {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(255,122,0,0.6);
+}
+
 /* RESULTADOS */
-#results{background:rgba(7,7,13,.95);z-index:25}
-.results-title{font-family:var(--font-display);font-size:2rem;font-weight:900;margin-bottom:.3em}
-.results-sub{color:var(--muted);margin-bottom:2em}
-.results-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5em;margin-bottom:2em;text-align:center}
-.rs-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2em}
-.rs-value{font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--accent)}
-.rs-label{font-size:.8rem;color:var(--muted);margin-top:.3em;text-transform:uppercase;letter-spacing:.1em}
-.results-rewards{display:flex;gap:1.5em;justify-content:center;margin-bottom:2em}
-.rr-item{display:flex;align-items:center;gap:.5em;font-size:1rem;font-weight:600}
-.rr-item i{font-size:1.1rem}
+#results {
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,122,0,0.06) 0%, rgba(8,12,16,0.97) 60%);
+}
+
+.results-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+}
+.results-sub{font-size:.9rem;color:var(--muted);margin-bottom:3em;text-transform:uppercase;letter-spacing:.1em}
+.results-stats{display:flex;gap:1.5em;margin-bottom:3em;flex-wrap:wrap;justify-content:center}
+
+.rs-item {
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 2px;
+  padding: 1.4em;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  min-width:120px;text-align:center;
+}
+.rs-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;margin-bottom:.5em;letter-spacing:.05em}
+.rs-value {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 0 0 15px rgba(255,122,0,0.4);
+}
 /* MODALES */
-.modal-overlay{position:fixed;inset:0;z-index:30;background:rgba(7,7,13,.85);display:flex;align-items:center;justify-content:center;transition:opacity .3s,visibility .3s}
-.modal-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:8px;width:min(95vw,700px);max-height:85vh;overflow-y:auto;padding:2em}
-.modal::-webkit-scrollbar{width:4px}.modal::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5em}
-.modal-title{font-family:var(--font-display);font-size:1.4rem;font-weight:700;letter-spacing:.08em}
-.modal-close{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;transition:color .2s}
-.modal-close:hover{color:var(--fg)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(5px);z-index:30;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s}
+.modal-overlay.show{opacity:1;visibility:visible}
+.modal {
+  background: var(--panel-bg);
+  border: 1px solid rgba(255,122,0,0.2);
+  border-top: 2px solid var(--accent);
+  border-radius: 2px;
+  width: min(95vw, 700px);
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2em;
+  box-shadow: 0 0 60px rgba(255,122,0,0.08), 0 20px 60px rgba(0,0,0,0.6);
+}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2em;border-bottom:1px solid var(--border);padding-bottom:1em}
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.modal-close{background:0 0;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;transition:color .2s}
+.modal-close:hover{color:var(--danger)}
+
 /* TIENDA */
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1em}
-.shop-item{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1em;text-align:center;transition:all .2s}
-.shop-item:hover{border-color:var(--accent);transform:translateY(-2px)}
-.shop-item.owned{border-color:var(--success);opacity:.7}
-.shop-item-icon{font-size:2rem;margin-bottom:.5em;color:var(--accent)}
-.shop-item-name{font-weight:600;font-size:.9rem;margin-bottom:.3em}
-.shop-item-price{font-size:.8rem;color:var(--accent2);display:flex;align-items:center;justify-content:center;gap:.3em}
-.shop-buy{font-family:var(--font-ui);font-size:.8rem;padding:.3em 1em;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:3px;cursor:pointer;margin-top:.5em;transition:all .2s;pointer-events:auto}
-.shop-buy:hover{background:rgba(0,232,255,.15)}
-/* BATTLE PASS */
-.bp-tier{display:flex;align-items:center;gap:1em;padding:.8em;border-bottom:1px solid var(--border)}
-.bp-tier.current{background:rgba(0,232,255,.06);border:1px solid rgba(0,232,255,.2);border-radius:6px}
-.bp-tier-num{font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--accent);min-width:35px}
-.bp-tier-reward{flex:1;font-size:.85rem}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1.5em}
+.shop-item {
+  background: rgba(13,19,24,0.8);
+  border: 1px solid rgba(255,122,0,0.15);
+  border-radius: 2px;
+  padding: 1em;
+  text-align: center;
+  transition: all 0.2s;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+.shop-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(255,122,0,0.15);
+  transform: translateY(-3px);
+}
+
+.shop-item.owned { border-color: var(--success); opacity: 0.65; }
+.shop-item-icon { font-size: 1.8rem; margin-bottom: 0.4em; color: var(--accent); }
+.shop-item-name{font-family:var(--font-display);font-size:.95rem;margin-bottom:.3em}
+.shop-item-price{color:var(--accent3);font-size:.85rem;margin-bottom:1em;font-weight:600}
+
+.shop-buy {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35em 1.2em;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: 1px;
+  cursor: pointer;
+  margin-top: 0.5em;
+  transition: all 0.2s;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: auto;
+}
+.shop-buy:hover { background: rgba(255,122,0,0.18); box-shadow: 0 0 12px rgba(255,122,0,0.2); }
+
+/* BP */
+.bp-list{display:flex;flex-direction:column;gap:1em}
+.bp-tier{display:flex;align-items:center;padding:1em;background:var(--card);border:1px solid var(--border);border-radius:4px}
+.bp-tier-num{width:40px;font-family:var(--font-display);font-size:1.2rem;color:var(--muted)}
+.bp-tier-reward{flex:1;font-size:.95rem}
 .bp-tier-locked{color:var(--muted)}
-.bp-tier-unlocked{color:var(--success)}
-/* RANKINGS */
-.rank-row{display:flex;align-items:center;gap:1em;padding:.7em .5em;border-bottom:1px solid var(--border);font-size:.9rem}
-.rank-row.me{background:rgba(0,232,255,.06);border-radius:4px}
-.rank-pos{font-family:var(--font-display);font-weight:700;min-width:30px;color:var(--accent)}
-.rank-name{flex:1;font-weight:600}
-.rank-kd{color:var(--muted);min-width:60px;text-align:right}
-.rank-rank-badge{font-size:.7rem;padding:.15em .5em;border-radius:3px;font-weight:700;min-width:70px;text-align:center}
+.bp-tier-unlocked { color: var(--success); }
+.bp-tier.current {
+  background: rgba(255,122,0,0.06);
+  border: 1px solid rgba(255,122,0,0.25);
+  border-radius: 2px;
+}
+.bp-tier.current .bp-tier-num { color: var(--accent); }
+
+/* Rankings */
+.rank-list{display:flex;flex-direction:column;gap:.5em}
+.rank-row{display:flex;align-items:center;padding:.8em 1em;background:rgba(255,255,255,.02);border-radius:4px;font-size:.9rem}
+.rank-row.me {
+  background: rgba(255,122,0,0.07);
+  border-left: 2px solid var(--accent);
+  padding-left: 0.5em;
+}
+.rank-pos { width:30px;color: var(--accent); font-weight:700;}
+.rank-name{flex:1;font-family:var(--font-display)}
+.rank-kd{width:80px;text-align:right;color:var(--muted)}
+.rank-rank-badge{padding:.2em .6em;border-radius:12px;font-size:.7rem;font-weight:700;margin-left:1em;min-width:70px;text-align:center}
 /* PAUSA */
 #pause-modal .modal{max-width:400px;text-align:center}
 .pause-buttons{display:flex;flex-direction:column;gap:.6em;align-items:center;margin-top:1.5em}
@@ -154,6 +486,73 @@ canvas#gc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
 @keyframes toastIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes toastOut{to{opacity:0;transform:translateY(-10px)}}
 @media(max-width:600px){.health-bar-outer{width:120px}.ammo-count{font-size:1.4rem}.score-bar{font-size:.7rem;padding:.3em .8em}.shop-grid{grid-template-columns:repeat(2,1fr)}.results-stats{grid-template-columns:repeat(3,1fr);gap:.8em}.rs-value{font-size:1.4rem}.modal{padding:1.2em}}
+
+/* Grid animado Firefall */
+@keyframes gridShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+
+#menu::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,122,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,122,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridShift 8s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Scanlines */
+.scanline-effect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Toast Firefall */
+.toast {
+  font-size: 0.82rem;
+  padding: 0.5em 1.4em;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 1px;
+  color: var(--fg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  letter-spacing: 0.06em;
+}
+
+/* Joystick Firefall */
+.joystick-base {
+  background: rgba(255,122,0,0.06);
+  border: 2px solid rgba(255,122,0,0.3);
+}
+.joystick-stick {
+  background: rgba(255,122,0,0.35);
+  border: 1px solid rgba(255,122,0,0.6);
+}
+.touch-fire {
+  border: 2px solid rgba(255,122,0,0.5);
+  background: rgba(255,122,0,0.12);
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+}
+
 </style>
 </head>
 <body>
@@ -161,9 +560,32 @@ canvas#gc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
 <canvas id="gc"></canvas>
 
 <!-- MENÚ PRINCIPAL -->
+<div id="auth-overlay" class="screen" style="background:rgba(7,7,13,0.97);z-index:100;">
+  <div style="text-align:center;max-width:340px;padding:2em;">
+    <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.2em;">ARMIAZ</div>
+    <div style="font-size:0.75rem;color:var(--muted);letter-spacing:0.4em;margin-bottom:2.5em;">AZ INNOVATIONX</div>
+    <div id="auth-status" style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5em;">Conectando...</div>
+    <div id="auth-buttons" style="display:flex;flex-direction:column;gap:0.8em;align-items:center;">
+      <button class="btn primary" id="btn-google" style="display:none;pointer-events:auto;">
+        <i class="fab fa-google"></i>&ensp;Entrar con Google
+      </button>
+      <button class="btn" id="btn-anon" style="display:none;pointer-events:auto;">
+        <i class="fas fa-user-secret"></i>&ensp;Jugar como Invitado
+      </button>
+    </div>
+    <div id="auth-user-info" style="display:none;margin-top:1.5em;">
+      <div id="auth-user-name" style="font-weight:600;font-size:1rem;margin-bottom:0.4em;"></div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1em;" id="auth-user-type"></div>
+      <button class="btn" id="btn-logout" style="min-width:160px;font-size:0.8rem;pointer-events:auto;">
+        <i class="fas fa-sign-out-alt"></i>&ensp;Cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>
 <div id="menu" class="screen scanline-effect">
   <div class="menu-logo">ARMIAZ</div>
-  <div class="menu-sub">Az InnovationX</div>
+  <div class="menu-logo-sub-line"></div>
+  <div class="menu-sub">Az InnovationX · Tactical FPS</div>
   <div class="menu-buttons">
     <button class="btn primary" onclick="startMatchmaking()"><i class="fas fa-crosshairs"></i>&ensp;JUGAR</button>
     <button class="btn" onclick="openModal('shop')"><i class="fas fa-store"></i>&ensp;TIENDA</button>
@@ -198,9 +620,9 @@ canvas#gc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
   <div class="weapon-switch-indicator" id="weapon-indicator"></div>
   <div class="hud-bottom">
     <div class="health-section">
+      <div class="health-label">VIDA</div>
       <div class="health-text" id="hud-hp">100</div>
       <div class="health-bar-outer"><div class="health-bar-inner" id="hud-hp-bar"></div></div>
-      <i class="fas fa-heart" style="color:var(--success);font-size:.9rem"></i>
     </div>
     <div class="ammo-section">
       <div class="ammo-count"><span id="hud-ammo">12</span> <span class="reserve">/ <span id="hud-reserve">48</span></span></div>
@@ -289,10 +711,44 @@ canvas#gc{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
 <div class="toast-container" id="toasts"></div>
 
 <script type="importmap">
-{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js",
+    "firebase/analytics": "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"
+  }
+}
 </script>
 <script type="module">
 import * as THREE from 'three';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInAnonymously, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, getDoc, setDoc, collection, query, orderBy, limit, getDocs, serverTimestamp } from 'firebase/firestore';
+import { getAnalytics, logEvent } from 'firebase/analytics';
+
+// ====================== FIREBASE CONFIG ======================
+const firebaseConfig = {
+  apiKey: "AIzaSyCahTC1Kflf0_fz6ZZ4seFBTWuiE2TatGg",
+  authDomain: "armiaz.firebaseapp.com",
+  projectId: "armiaz",
+  storageBucket: "armiaz.firebasestorage.app",
+  messagingSenderId: "391110212307",
+  appId: "1:391110212307:web:da28bb63505b397df13226",
+  measurementId: "G-NGN7V4GCCK"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const analytics = getAnalytics(firebaseApp);
+const googleProvider = new GoogleAuthProvider();
+
+let currentUser = null;
+let fbReady = false;
+
 
 // ====================== CONFIGURACIÓN ======================
 const MAP_SIZE = 80;
@@ -331,7 +787,7 @@ function playSound(type){
     const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*.08,audioCtx.sampleRate);
     const d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/d.length*6);
     const s=audioCtx.createBufferSource();s.buffer=buf;const f=audioCtx.createBiquadFilter();f.type='lowpass';f.frequency.value=3000;
-    s.connect(f);f.connect(g);g.gain.setValueAtTime(.25,now);g.gain.exponentialDecayTo?0:g.gain.linearRampToValueAtTime(.001,now+.1);s.start(now);
+    s.connect(f);f.connect(g);g.gain.setValueAtTime(.25,now);g.gain.linearRampToValueAtTime(0.001, now + 0.1);s.start(now);
   }else if(type==='shoot_heavy'){
     const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*.15,audioCtx.sampleRate);
     const d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/d.length*4);
@@ -365,11 +821,54 @@ function playSound(type){
   }
 }
 
-// ====================== SISTEMA DE GUARDADO ======================
-const DEFAULT_SAVE={level:1,xp:0,armiCoins:200,unlockedWeapons:['pistol'],equippedWeapons:['pistol','rifle'],kills:0,deaths:0,matchesPlayed:0,bpTier:0};
-let saveData;
-function loadSave(){try{const s=localStorage.getItem('armiaz_save');saveData=s?{...DEFAULT_SAVE,...JSON.parse(s)}:{...DEFAULT_SAVE}}catch(e){saveData={...DEFAULT_SAVE}}}
-function saveSave(){try{localStorage.setItem('armiaz_save',JSON.stringify(saveData))}catch(e){}}
+// ====================== FIREBASE SAVE SYSTEM ======================
+const DEFAULT_SAVE = {
+  level: 1, xp: 0, armiCoins: 200,
+  unlockedWeapons: ['pistol'],
+  equippedWeapons: ['pistol', 'rifle'],
+  kills: 0, deaths: 0, matchesPlayed: 0, bpTier: 0,
+  purchasedItems: [],
+  displayName: 'Soldado'
+};
+
+let saveData = { ...DEFAULT_SAVE };
+let purchasedItems = [];
+
+async function loadSaveFromFirestore(uid) {
+  try {
+    const ref = doc(db, 'players', uid);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      saveData = { ...DEFAULT_SAVE, ...snap.data() };
+    } else {
+      saveData = { ...DEFAULT_SAVE };
+      await setDoc(ref, { ...saveData, createdAt: serverTimestamp() });
+    }
+    purchasedItems = saveData.purchasedItems || [];
+  } catch (e) {
+    console.warn('Firebase load error:', e);
+    saveData = { ...DEFAULT_SAVE };
+    purchasedItems = [];
+  }
+}
+
+async function saveToFirestore() {
+  if (!currentUser) return;
+  try {
+    saveData.purchasedItems = purchasedItems;
+    const ref = doc(db, 'players', currentUser.uid);
+    await setDoc(ref, { ...saveData, updatedAt: serverTimestamp() }, { merge: true });
+  } catch (e) {
+    console.warn('Firebase save error:', e);
+    try { localStorage.setItem('armiaz_save_backup', JSON.stringify(saveData)); } catch(_) {}
+  }
+}
+
+function saveSave() { saveToFirestore(); }
+function loadPurchases() {}
+function savePurchases() { saveToFirestore(); }
+function loadSave() {}
+
 function xpForLevel(lv){return lv*100}
 function addXP(amount){
   saveData.xp+=amount;
@@ -423,9 +922,6 @@ const SHOP_ITEMS=[
   {id:'u_dmg',type:'upgrade',name:'Boost Daño +10%',price:1500,icon:'fa-arrow-up'},
   {id:'u_speed',type:'upgrade',name:'Boost Velocidad',price:1200,icon:'fa-person-running'}
 ];
-let purchasedItems=[];
-function loadPurchases(){try{purchasedItems=JSON.parse(localStorage.getItem('armiaz_shop')||'[]')}catch(e){purchasedItems=[]}}
-function savePurchases(){try{localStorage.setItem('armiaz_shop',JSON.stringify(purchasedItems))}catch(e){}}
 function buildShop(){
   document.getElementById('shop-coins').textContent=saveData.armiCoins;
   const grid=document.getElementById('shop-grid');grid.innerHTML='';
@@ -465,29 +961,50 @@ function buildBP(){
 }
 
 // RANKINGS
-function buildRankings(){
-  const kd=saveData.deaths>0?(saveData.kills/saveData.deaths):saveData.kills;
-  const fakePlayers=[];
-  for(let i=0;i<9;i++){
-    const k=Math.floor(Math.random()*50)+5;const d=Math.floor(Math.random()*40)+2;
-    fakePlayers.push({name:BOT_NAMES[i],kills:k,deaths:d,kd:+(k/d).toFixed(2),me:false});
+async function buildRankings() {
+  const cont = document.getElementById('rank-list');
+  cont.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2em;">Cargando ranking global...</div>';
+  try {
+    const q = query(collection(db, 'players'), orderBy('kills', 'desc'), limit(20));
+    const snapshot = await getDocs(q);
+    const players = [];
+    snapshot.forEach(docSnap => {
+      const d = docSnap.data();
+      const isMe = currentUser && docSnap.id === currentUser.uid;
+      const kills = d.kills || 0;
+      const deaths = d.deaths || 0;
+      const kd = deaths > 0 ? (kills / deaths) : kills;
+      players.push({ name: d.displayName || (isMe ? 'TÚ' : 'Soldado'), kills, deaths, kd: +kd.toFixed(2), me: isMe });
+    });
+    const meInList = players.some(p => p.me);
+    if (!meInList && currentUser) {
+      const myKd = saveData.deaths > 0 ? (saveData.kills / saveData.deaths) : saveData.kills;
+      players.push({ name: saveData.displayName || 'TÚ', kills: saveData.kills, deaths: saveData.deaths, kd: +myKd.toFixed(2), me: true });
+    }
+    cont.innerHTML = '';
+    if (players.length === 0) {
+      cont.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2em;">¡Sé el primero en el ranking!</div>';
+      return;
+    }
+    players.forEach((p, i) => {
+      const rank = getRank(p.kd);
+      const div = document.createElement('div');
+      div.className = 'rank-row' + (p.me ? ' me' : '');
+      div.innerHTML = `<div class="rank-pos">${i+1}</div><div class="rank-name">${p.name}${p.me?' <span style="color:var(--accent);font-size:.7rem">(TÚ)</span>':''}</div><div style="color:var(--muted);font-size:.8rem;min-width:50px;text-align:right">${p.kills}K</div><div class="rank-kd">${p.kd} K/D</div><div class="rank-rank-badge" style="background:${rank.color}22;color:${rank.color};border:1px solid ${rank.color}44">${rank.name}</div>`;
+      cont.appendChild(div);
+    });
+    logEvent(analytics, 'view_ranking');
+  } catch (e) {
+    cont.innerHTML = '<div style="text-align:center;color:var(--muted);padding:2em;">No se pudo cargar el ranking.</div>';
+    console.warn('Rankings error:', e);
   }
-  fakePlayers.push({name:'TÚ',kills:saveData.kills,deaths:saveData.deaths,kd:+kd.toFixed(2),me:true});
-  fakePlayers.sort((a,b)=>b.kd-a.kd);
-  const cont=document.getElementById('rank-list');cont.innerHTML='';
-  fakePlayers.forEach((p,i)=>{
-    const rank=getRank(p.kd);
-    const div=document.createElement('div');div.className='rank-row'+(p.me?' me':'');
-    div.innerHTML=`<div class="rank-pos">${i+1}</div><div class="rank-name">${p.name}</div><div class="rank-kd">${p.kd} K/D</div><div class="rank-rank-badge" style="background:${rank.color}22;color:${rank.color};border:1px solid ${rank.color}44">${rank.name}</div>`;
-    cont.appendChild(div);
-  });
 }
 
 // ====================== THREE.JS SETUP ======================
 function initThree(){
   scene=new THREE.Scene();
-  scene.background=new THREE.Color(0x07070d);
-  scene.fog=new THREE.FogExp2(0x07070d,.012);
+  scene.background = new THREE.Color(0x080c10);
+  scene.fog = new THREE.FogExp2(0x080c10, 0.010);
   camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,.1,200);
   camera.position.set(0,8,50);
   renderer=new THREE.WebGLRenderer({canvas:document.getElementById('gc'),antialias:true});
@@ -528,7 +1045,7 @@ function buildMap(){
     const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);mesh.position.set(x,h/2,z);mesh.castShadow=true;mesh.receiveShadow=true;scene.add(mesh);
     // Bordes brillantes
     const edges=new THREE.EdgesGeometry(new THREE.BoxGeometry(w+.05,h+.05,d+.05));
-    const line=new THREE.LineSegments(edges,new THREE.LineBasicMaterial({color:0x00e8ff,transparent:true,opacity:.15}));line.position.copy(mesh.position);scene.add(line);
+    const line=new THREE.LineSegments(edges,new THREE.LineBasicMaterial({color:0xff7a00, transparent:true, opacity:0.12}));line.position.copy(mesh.position);scene.add(line);
     // Ventanas
     const winMat=new THREE.MeshStandardMaterial({color:0x00e8ff,emissive:0x00e8ff,emissiveIntensity:.3,transparent:true,opacity:.4});
     const rows=Math.floor(h/3);const cols=Math.floor(Math.max(w,d)/2.5);
@@ -545,8 +1062,8 @@ function buildMap(){
     const mat=new THREE.MeshStandardMaterial({color:0x1a1a30,roughness:.5,metalness:.6});
     const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);mesh.position.set(x,h/2,z);mesh.castShadow=true;scene.add(mesh);
     const edges=new THREE.EdgesGeometry(new THREE.BoxGeometry(w+.02,h+.02,d+.02));
-    const line=new THREE.LineSegments(edges,new THREE.LineBasicMaterial({color:0xff6a00,transparent:true,opacity:.2}));line.position.copy(mesh.position);scene.add(line);
-    obstacles.push({min:new THREE.Vector3(x-w/2-.3,0,z-d/2-.3),max:new THREE.Vector3(x+w/2+.5,h,z+d/2+.5),mesh});
+    const line=new THREE.LineSegments(edges,new THREE.LineBasicMaterial({color:0xffaa00, transparent:true, opacity:0.18}));line.position.copy(mesh.position);scene.add(line);
+    obstacles.push({ min: new THREE.Vector3(x - w/2 - 0.3, 0, z - d/2 - 0.3), max: new THREE.Vector3(x + w/2 + 0.3, h, z + d/2 + 0.3), mesh });
   }
   // Edificios esquina
   addBuilding(-30,0,8,14,8);addBuilding(30,0,8,14,8);addBuilding(-30,-30,8,10,8);addBuilding(30,-30,8,10,8);
@@ -564,9 +1081,9 @@ function buildMap(){
   // Pilares decorativos
   for(let i=0;i<6;i++){
     const angle=i*Math.PI*2/6;const px=Math.cos(angle)*22;const pz=Math.sin(angle)*22;
-    const pillar=new THREE.Mesh(new THREE.CylinderGeometry(.4,.4,6,8),new THREE.MeshStandardMaterial({color:0x00e8ff,emissive:0x00e8ff,emissiveIntensity:.15}));
+    const pillar=new THREE.Mesh(new THREE.CylinderGeometry(.4,.4,6,8),new THREE.MeshStandardMaterial({color:0xff7a00, emissive:0xff7a00, emissiveIntensity:0.2}));
     pillar.position.set(px,3,pz);scene.add(pillar);
-    const light=new THREE.PointLight(0x00e8ff,.2,8);light.position.set(px,6,pz);scene.add(light);
+    const light=new THREE.PointLight(0xff7a00, 0.3, 10);light.position.set(px,6,pz);scene.add(light);
   }
   // Muros perimetrales (invisibles para colisión)
   const hw=MAP_SIZE/2;
@@ -1043,8 +1560,9 @@ function initControls(){
   }
 }
 
-function switchWeapon(id){
-  if(!saveData.unlockedWeapons.includes(id))return;
+function switchWeapon(id) {
+  if (!saveData.unlockedWeapons.includes(id)) return;
+  if (!saveData.equippedWeapons.includes(id)) return; // solo armas equipadas
   if(id===player.currentWeapon)return;
   player.currentWeapon=id;player.reloading=false;
   equipWeaponModel(id);
@@ -1068,14 +1586,25 @@ function updatePlayer(dt){
   const right=new THREE.Vector3(Math.cos(player.rotY),0,-Math.sin(player.rotY));
   const wishMove=forward.multiplyScalar(-moveDir.z).add(right.multiplyScalar(moveDir.x));
   // Aplicar con colisión (separar ejes)
-  const newPosX=player.position.clone().addScaledVector(wishMove,speed*dt);
-  if(!checkCollision(newPosX,.4))player.position.x=newPosX.x;else if(!checkCollision(new THREE.Vector3(newPosX.x,player.position.y,player.position.z),.4))player.position.x=newPosX.x;
-  const newPosZ=player.position.clone().add(new THREE.Vector3(0,0,wishMove.z?wishMove.z*speed*dt:0));
-  if(!checkCollision(newPosZ,.4))player.position.z=newPosZ.z;else if(!checkCollision(new THREE.Vector3(player.position.x,player.position.y,newPosZ.z),.4))player.position.z=newPosZ.z;
+  // Eje X
+  const moveX = new THREE.Vector3(wishMove.x * speed * dt, 0, 0);
+  const nextPosX = player.position.clone().add(moveX);
+  if (!checkCollision(nextPosX, 0.4)) player.position.x = nextPosX.x;
+
+  // Eje Z
+  const moveZ = new THREE.Vector3(0, 0, wishMove.z * speed * dt);
+  const nextPosZ = player.position.clone().add(moveZ);
+  if (!checkCollision(nextPosZ, 0.4)) player.position.z = nextPosZ.z;
   // Gravedad
   player.velocity.y+=GRAVITY*dt;
   player.position.y+=player.velocity.y*dt;
-  if(player.position.y<=1.5){player.position.y=1.5;player.velocity.y=0;player.onGround=true}
+  if (player.position.y <= 1.5) {
+  player.position.y = 1.5;
+  player.velocity.y = 0;
+  player.onGround = true;
+} else {
+  player.onGround = false;
+}
   // Salto
   if(keys['Space']&&player.onGround){player.velocity.y=JUMP_FORCE;player.onGround=false}
   // Cámara
@@ -1192,6 +1721,10 @@ function initMatch(){
   for(let i=0;i<MAX_BOTS;i++)spawnBot(i);
   matchTimer=MATCH_TIME;
   equipWeaponModel(player.currentWeapon);
+  // Limpiar modelo de arma previo
+  if (playerWeaponModel) camera.remove(playerWeaponModel);
+  playerWeaponModel = null;
+  weaponMeshes = {}; // Reset cache para evitar armas de partidas anteriores
   camera.add(playerWeaponModel);
   scene.add(camera);
   // Kill feed
@@ -1200,7 +1733,10 @@ function initMatch(){
 
 function checkMatchEnd(){
   if(player.kills>=KILLS_TO_WIN)endMatch(true);
-  else if(matchTimer<=0)endMatch(player.kills>=bots.reduce((a,b)=>a+b.kills,0));
+  else if (matchTimer <= 0) {
+    // Los bots no tienen contador propio de kills, se determina por tiempo
+    endMatch(player.kills > 0);
+  }
 }
 
 function endMatch(won){
@@ -1210,7 +1746,7 @@ function endMatch(won){
   document.getElementById('hud').classList.add('hidden');
   document.getElementById('res-title').textContent=won?'VICTORIA':'DERROTA';
   document.getElementById('res-title').style.color=won?'var(--accent)':'var(--danger)';
-  document.getElementById('res-sub').textContent=won+'Dominaste el campo de batalla':'Mejor suerte la próxima';
+  document.getElementById('res-sub').textContent = won ? 'Dominaste el campo de batalla' : 'Mejor suerte la próxima';
   document.getElementById('res-kills').textContent=player.kills;
   document.getElementById('res-deaths').textContent=player.deaths;
   const kd=player.deaths>0?(player.kills/player.deaths).toFixed(1):player.kills.toFixed(1);
@@ -1221,13 +1757,22 @@ function endMatch(won){
   addXP(xpGain);saveData.armiCoins+=coinGain;saveData.kills+=player.kills;saveData.deaths+=player.deaths;saveData.matchesPlayed++;
   if(xpGain>50&&saveData.bpTier<BP_REWARDS.length-1)saveData.bpTier++;
   saveSave();updateMenuStats();
+  if (currentUser) {
+    const name = currentUser.displayName || (currentUser.isAnonymous ? 'Invitado_' + currentUser.uid.slice(0,5) : currentUser.email?.split('@')[0] || 'Soldado');
+    saveData.displayName = name;
+  }
+  logEvent(analytics, 'match_completed', { kills: player.kills, deaths: player.deaths, won: won, weapon: player.currentWeapon });
   // Limpiar escena
   bots.forEach(b=>scene.remove(b.mesh));bots=[];
   scene.remove(camera);
+  if (playerWeaponModel) { camera.remove(playerWeaponModel); playerWeaponModel = null; }
+  weaponMeshes = {};
 }
 
 // ====================== MATCHMAKING ======================
 window.startMatchmaking=function(){
+  if (!fbReady) { showToast('Conectando con el servidor...'); return; }
+  logEvent(analytics, 'matchmaking_start');
   initAudio();
   showScreen('matchmaking');
   gameState='matchmaking';
@@ -1255,4 +1800,141 @@ window.startMatchmaking=function(){
 function pauseGame(){if(gameState!=='playing')return;gameState='paused';document.exitPointerLock();document.getElementById('pause-modal').classList.remove('hidden')}
 window.resumeGame=function(){document.getElementById('pause-modal').classList.add('hidden');gameState='playing';document.getElementById('gc').requestPointerLock()};
 window.leaveMatch=function(){document.getElementById('pause-modal').classList.add('hidden');endMatch(false)};
-window.backToMenu=function(){gameState='menu';showScreen('menu');updateMenuStats();
+window.backToMenu=function(){gameState='menu';showScreen('menu');updateMenuStats();}
+
+// ====================== FIREBASE AUTH ======================
+function showAuthOverlay() {
+  document.getElementById('auth-overlay').classList.remove('hidden');
+  document.getElementById('menu').classList.add('hidden');
+}
+
+function hideAuthOverlay() {
+  document.getElementById('auth-overlay').classList.add('hidden');
+}
+
+async function onUserSignedIn(user) {
+  currentUser = user;
+  await loadSaveFromFirestore(user.uid);
+  purchasedItems = saveData.purchasedItems || [];
+  fbReady = true;
+  hideAuthOverlay();
+  updateMenuStats();
+  showScreen('menu');
+  logEvent(analytics, 'login', { method: user.isAnonymous ? 'anonymous' : 'google' });
+}
+
+function initFirebaseAuth() {
+  const statusEl = document.getElementById('auth-status');
+  const btnGoogle = document.getElementById('btn-google');
+  const btnAnon = document.getElementById('btn-anon');
+  const btnLogout = document.getElementById('btn-logout');
+  const userInfo = document.getElementById('auth-user-info');
+  const authButtons = document.getElementById('auth-buttons');
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      statusEl.textContent = 'Cargando perfil...';
+      await onUserSignedIn(user);
+      document.getElementById('auth-user-name').textContent =
+        user.displayName || (user.isAnonymous ? 'Invitado' : user.email);
+      document.getElementById('auth-user-type').textContent =
+        user.isAnonymous ? 'Sesión de invitado' : 'Cuenta Google vinculada';
+      userInfo.style.display = '';
+      authButtons.style.display = 'none';
+    } else {
+      statusEl.textContent = 'Elige cómo jugar:';
+      btnGoogle.style.display = '';
+      btnAnon.style.display = '';
+    }
+  });
+
+  btnGoogle.addEventListener('click', async () => {
+    btnGoogle.disabled = true;
+    statusEl.textContent = 'Abriendo Google...';
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (e) {
+      statusEl.textContent = 'Error al iniciar sesión. Intenta de nuevo.';
+      btnGoogle.disabled = false;
+    }
+  });
+
+  btnAnon.addEventListener('click', async () => {
+    btnAnon.disabled = true;
+    statusEl.textContent = 'Creando sesión de invitado...';
+    try {
+      await signInAnonymously(auth);
+    } catch (e) {
+      statusEl.textContent = 'Error de conexión. Intenta de nuevo.';
+      btnAnon.disabled = false;
+    }
+  });
+
+  btnLogout.addEventListener('click', async () => {
+    await auth.signOut();
+    currentUser = null;
+    fbReady = false;
+    saveData = { ...DEFAULT_SAVE };
+    purchasedItems = [];
+    userInfo.style.display = 'none';
+    authButtons.style.display = '';
+    btnGoogle.style.display = '';
+    btnAnon.style.display = '';
+    btnGoogle.disabled = false;
+    btnAnon.disabled = false;
+    statusEl.textContent = 'Elige cómo jugar:';
+    showAuthOverlay();
+    updateMenuStats();
+  });
+}
+// ====================== GAME LOOP ======================
+function gameLoop() {
+  requestAnimationFrame(gameLoop);
+  const dt = Math.min(clock.getDelta(), 0.05); // cap a 50ms para evitar spiral of death
+
+  if (gameState === 'playing') {
+    matchTimer -= dt;
+    if (matchTimer < 0) matchTimer = 0;
+
+    updatePlayer(dt);
+    bots.forEach(b => updateBot(b, dt));
+    updateBullets(dt);
+    updateParticles(dt);
+    updateMinimap();
+    updateHUD();
+    checkMatchEnd();
+
+    // Screen shake
+    if (shakeIntensity > 0) {
+      camera.position.x += (Math.random() - 0.5) * shakeIntensity;
+      camera.position.y += (Math.random() - 0.5) * shakeIntensity;
+      shakeIntensity *= 0.85;
+      if (shakeIntensity < 0.001) shakeIntensity = 0;
+    }
+  }
+
+  renderer.render(scene, camera);
+}
+
+// ====================== INICIALIZACIÓN ======================
+initThree();
+initControls();
+updateMenuStats();
+gameLoop();
+initFirebaseAuth();
+</script>
+<!--
+FIRESTORE RULES — paste in Firebase Console > Firestore > Rules:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /players/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+-->
+</body>
+</html>
